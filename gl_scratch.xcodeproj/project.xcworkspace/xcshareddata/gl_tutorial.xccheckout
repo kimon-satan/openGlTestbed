@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DB5778E9-F40F-4D69-BF2C-2024D0490722</string>
+	<key>IDESourceControlProjectName</key>
+	<string>gl_tutorial</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E7027177CBBEC951DD6B06F1417E3510CCCE556B</key>
+		<string>https://github.com/kimon-satan/glFromScratch.git</string>
+		<key>F91D28A7E95E8F0399C74826E40B332B63E48E1C</key>
+		<string>https://github.com/glfw/glfw.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>gl_tutorial.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E7027177CBBEC951DD6B06F1417E3510CCCE556B</key>
+		<string>../..</string>
+		<key>F91D28A7E95E8F0399C74826E40B332B63E48E1C</key>
+		<string>../../../cppLibs/glfw</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/kimon-satan/glFromScratch.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E7027177CBBEC951DD6B06F1417E3510CCCE556B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E7027177CBBEC951DD6B06F1417E3510CCCE556B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>gl_tutorial</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F91D28A7E95E8F0399C74826E40B332B63E48E1C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>glfw</string>
+		</dict>
+	</array>
+</dict>
+</plist>

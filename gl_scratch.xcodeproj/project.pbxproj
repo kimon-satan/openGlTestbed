@@ -1,0 +1,328 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F120C0071ABA33F600BAA98C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F120C0061ABA33F600BAA98C /* Cocoa.framework */; };
+		F120C0091ABA33FD00BAA98C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F120C0081ABA33FD00BAA98C /* OpenGL.framework */; };
+		F120C00B1ABA340500BAA98C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F120C00A1ABA340500BAA98C /* IOKit.framework */; };
+		F120C00D1ABA342300BAA98C /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F120C00C1ABA342300BAA98C /* CoreVideo.framework */; };
+		F120C00F1ABA389100BAA98C /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F120C00E1ABA389100BAA98C /* libglfw3.a */; };
+		F120C0111ABA3C2500BAA98C /* libGLEW.1.11.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F120C0101ABA3C2500BAA98C /* libGLEW.1.11.0.dylib */; };
+		F18ADBE71B133D8D00114AE2 /* gl_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F18ADBE21B133D8D00114AE2 /* gl_utils.cpp */; };
+		F18ADBE81B133D8D00114AE2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F18ADBE41B133D8D00114AE2 /* main.cpp */; };
+		F18ADBE91B133D8D00114AE2 /* maths_funcs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F18ADBE51B133D8D00114AE2 /* maths_funcs.cpp */; };
+		F18ADBEC1B133D9A00114AE2 /* stb_image.c in Sources */ = {isa = PBXBuildFile; fileRef = F18ADBEA1B133D9A00114AE2 /* stb_image.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F120BFF51ABA2C0300BAA98C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F120BFF71ABA2C0300BAA98C /* gl_tutorial */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gl_tutorial; sourceTree = BUILT_PRODUCTS_DIR; };
+		F120C0061ABA33F600BAA98C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F120C0081ABA33FD00BAA98C /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		F120C00A1ABA340500BAA98C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		F120C00C1ABA342300BAA98C /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		F120C00E1ABA389100BAA98C /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../cppLibs/glfw/build/lib/libglfw3.a; sourceTree = "<group>"; };
+		F120C0101ABA3C2500BAA98C /* libGLEW.1.11.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.11.0.dylib; path = "../../cppLibs/glew-1.11.0/build/usr/lib/libGLEW.1.11.0.dylib"; sourceTree = "<group>"; };
+		F18ADBE21B133D8D00114AE2 /* gl_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gl_utils.cpp; path = src/gl_utils.cpp; sourceTree = SOURCE_ROOT; };
+		F18ADBE31B133D8D00114AE2 /* gl_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gl_utils.h; path = src/gl_utils.h; sourceTree = SOURCE_ROOT; };
+		F18ADBE41B133D8D00114AE2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
+		F18ADBE51B133D8D00114AE2 /* maths_funcs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maths_funcs.cpp; path = src/maths_funcs.cpp; sourceTree = SOURCE_ROOT; };
+		F18ADBE61B133D8D00114AE2 /* maths_funcs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maths_funcs.h; path = src/maths_funcs.h; sourceTree = SOURCE_ROOT; };
+		F18ADBEA1B133D9A00114AE2 /* stb_image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stb_image.c; path = src/stb_image.c; sourceTree = SOURCE_ROOT; };
+		F18ADBEB1B133D9A00114AE2 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_image.h; path = src/stb_image.h; sourceTree = SOURCE_ROOT; };
+		F18ADBEF1B133FCA00114AE2 /* test_fs.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test_fs.glsl; path = shaders/test_fs.glsl; sourceTree = SOURCE_ROOT; };
+		F18ADBF01B133FCA00114AE2 /* test_vs.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test_vs.glsl; path = shaders/test_vs.glsl; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F120BFF41ABA2C0300BAA98C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F120C00F1ABA389100BAA98C /* libglfw3.a in Frameworks */,
+				F120C0111ABA3C2500BAA98C /* libGLEW.1.11.0.dylib in Frameworks */,
+				F120C00D1ABA342300BAA98C /* CoreVideo.framework in Frameworks */,
+				F120C00B1ABA340500BAA98C /* IOKit.framework in Frameworks */,
+				F120C0091ABA33FD00BAA98C /* OpenGL.framework in Frameworks */,
+				F120C0071ABA33F600BAA98C /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F120BFEE1ABA2C0300BAA98C = {
+			isa = PBXGroup;
+			children = (
+				F120C0101ABA3C2500BAA98C /* libGLEW.1.11.0.dylib */,
+				F120C00E1ABA389100BAA98C /* libglfw3.a */,
+				F120C00C1ABA342300BAA98C /* CoreVideo.framework */,
+				F120C00A1ABA340500BAA98C /* IOKit.framework */,
+				F120C0081ABA33FD00BAA98C /* OpenGL.framework */,
+				F120C0061ABA33F600BAA98C /* Cocoa.framework */,
+				F120BFF81ABA2C0300BAA98C /* Products */,
+				F18ADBDF1B133D6300114AE2 /* src */,
+				F18ADBC51B132B7300114AE2 /* Dependencies */,
+			);
+			sourceTree = "<group>";
+		};
+		F120BFF81ABA2C0300BAA98C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F120BFF71ABA2C0300BAA98C /* gl_tutorial */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F18ADBC51B132B7300114AE2 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				F18ADBEA1B133D9A00114AE2 /* stb_image.c */,
+				F18ADBEB1B133D9A00114AE2 /* stb_image.h */,
+			);
+			name = Dependencies;
+			path = gl_tutorial;
+			sourceTree = "<group>";
+		};
+		F18ADBDF1B133D6300114AE2 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				F18ADBEF1B133FCA00114AE2 /* test_fs.glsl */,
+				F18ADBF01B133FCA00114AE2 /* test_vs.glsl */,
+				F18ADBE21B133D8D00114AE2 /* gl_utils.cpp */,
+				F18ADBE31B133D8D00114AE2 /* gl_utils.h */,
+				F18ADBE41B133D8D00114AE2 /* main.cpp */,
+				F18ADBE51B133D8D00114AE2 /* maths_funcs.cpp */,
+				F18ADBE61B133D8D00114AE2 /* maths_funcs.h */,
+			);
+			name = src;
+			path = gl_tutorial;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F120BFF61ABA2C0300BAA98C /* gl_scratch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F120C0001ABA2C0300BAA98C /* Build configuration list for PBXNativeTarget "gl_scratch" */;
+			buildPhases = (
+				F120BFF31ABA2C0300BAA98C /* Sources */,
+				F120BFF41ABA2C0300BAA98C /* Frameworks */,
+				F120BFF51ABA2C0300BAA98C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = gl_scratch;
+			productName = gl_tutorial;
+			productReference = F120BFF71ABA2C0300BAA98C /* gl_tutorial */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F120BFEF1ABA2C0300BAA98C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "__SIMONCORP___";
+			};
+			buildConfigurationList = F120BFF21ABA2C0300BAA98C /* Build configuration list for PBXProject "gl_scratch" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F120BFEE1ABA2C0300BAA98C;
+			productRefGroup = F120BFF81ABA2C0300BAA98C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F120BFF61ABA2C0300BAA98C /* gl_scratch */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F120BFF31ABA2C0300BAA98C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F18ADBE81B133D8D00114AE2 /* main.cpp in Sources */,
+				F18ADBE91B133D8D00114AE2 /* maths_funcs.cpp in Sources */,
+				F18ADBE71B133D8D00114AE2 /* gl_utils.cpp in Sources */,
+				F18ADBEC1B133D9A00114AE2 /* stb_image.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F120BFFE1ABA2C0300BAA98C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/programmingTools/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/usr/local/include/GLFW/**",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = /usr/local/lib/libglfw3.a;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F120BFFF1ABA2C0300BAA98C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/programmingTools/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/usr/local/include/GLFW/**",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_LDFLAGS = /usr/local/lib/libglfw3.a;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F120C0011ABA2C0300BAA98C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					../../cppLibs/glfw/include/GLFW,
+					../../cppLibs/glfw/include,
+					/Applications/programmingTools/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../../cppLibs/glew-1.11.0/build/usr/include",
+					"../../cppLibs/glm/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kimonsatan/code/cppLibs/glfw/build/lib,
+					"/Users/kimonsatan/code/cppLibs/glew-1.11.0/build/usr/lib",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F120C0021ABA2C0300BAA98C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					../../cppLibs/glfw/include/GLFW,
+					../../cppLibs/glfw/include,
+					/Applications/programmingTools/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../../cppLibs/glew-1.11.0/build/usr/include",
+					"../../cppLibs/glm/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kimonsatan/code/cppLibs/glfw/build/lib,
+					"/Users/kimonsatan/code/cppLibs/glew-1.11.0/build/usr/lib",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F120BFF21ABA2C0300BAA98C /* Build configuration list for PBXProject "gl_scratch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F120BFFE1ABA2C0300BAA98C /* Debug */,
+				F120BFFF1ABA2C0300BAA98C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F120C0001ABA2C0300BAA98C /* Build configuration list for PBXNativeTarget "gl_scratch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F120C0011ABA2C0300BAA98C /* Debug */,
+				F120C0021ABA2C0300BAA98C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F120BFEF1ABA2C0300BAA98C /* Project object */;
+}
