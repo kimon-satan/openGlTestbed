@@ -13,6 +13,7 @@
 		F120C00D1ABA342300BAA98C /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F120C00C1ABA342300BAA98C /* CoreVideo.framework */; };
 		F120C00F1ABA389100BAA98C /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F120C00E1ABA389100BAA98C /* libglfw3.a */; };
 		F120C0111ABA3C2500BAA98C /* libGLEW.1.11.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F120C0101ABA3C2500BAA98C /* libGLEW.1.11.0.dylib */; };
+		F16A8C701B13776600075A03 /* noise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16A8C6E1B13776600075A03 /* noise.cpp */; };
 		F18ADBE71B133D8D00114AE2 /* gl_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F18ADBE21B133D8D00114AE2 /* gl_utils.cpp */; };
 		F18ADBE81B133D8D00114AE2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F18ADBE41B133D8D00114AE2 /* main.cpp */; };
 		F18ADBE91B133D8D00114AE2 /* maths_funcs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F18ADBE51B133D8D00114AE2 /* maths_funcs.cpp */; };
@@ -40,6 +41,8 @@
 		F120C00C1ABA342300BAA98C /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		F120C00E1ABA389100BAA98C /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../cppLibs/glfw/build/lib/libglfw3.a; sourceTree = "<group>"; };
 		F120C0101ABA3C2500BAA98C /* libGLEW.1.11.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.11.0.dylib; path = "../../cppLibs/glew-1.11.0/build/usr/lib/libGLEW.1.11.0.dylib"; sourceTree = "<group>"; };
+		F16A8C6E1B13776600075A03 /* noise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = noise.cpp; path = src/noise.cpp; sourceTree = SOURCE_ROOT; };
+		F16A8C6F1B13776600075A03 /* noise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = noise.h; path = src/noise.h; sourceTree = SOURCE_ROOT; };
 		F18ADBE21B133D8D00114AE2 /* gl_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gl_utils.cpp; path = src/gl_utils.cpp; sourceTree = SOURCE_ROOT; };
 		F18ADBE31B133D8D00114AE2 /* gl_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gl_utils.h; path = src/gl_utils.h; sourceTree = SOURCE_ROOT; };
 		F18ADBE41B133D8D00114AE2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
@@ -109,6 +112,8 @@
 				F18ADBEF1B133FCA00114AE2 /* test_fs.glsl */,
 				F18ADBF01B133FCA00114AE2 /* test_vs.glsl */,
 				F18ADBE41B133D8D00114AE2 /* main.cpp */,
+				F16A8C6E1B13776600075A03 /* noise.cpp */,
+				F16A8C6F1B13776600075A03 /* noise.h */,
 				F18ADBE51B133D8D00114AE2 /* maths_funcs.cpp */,
 				F18ADBE61B133D8D00114AE2 /* maths_funcs.h */,
 				F18ADBF11B134F7000114AE2 /* primitives.cpp */,
@@ -171,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F16A8C701B13776600075A03 /* noise.cpp in Sources */,
 				F18ADBE81B133D8D00114AE2 /* main.cpp in Sources */,
 				F18ADBE91B133D8D00114AE2 /* maths_funcs.cpp in Sources */,
 				F18ADBF31B134F7000114AE2 /* primitives.cpp in Sources */,

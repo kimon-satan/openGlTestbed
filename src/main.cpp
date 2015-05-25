@@ -14,6 +14,7 @@
 #include "maths_funcs.h"
 #include "gl_utils.h"
 #include "primitives.h"
+#include "noise.h"
 #include "stb_image.h" // Sean Barrett's image loader - http://nothings.org/
 #include <GL/glew.h> // include GLEW and new version of GL on Windows
 #include <GLFW/glfw3.h> // GLFW helper library
@@ -91,6 +92,8 @@ bool load_texture (const char* file_name, GLuint* tex) {
 	glTexParameterf (GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, max_aniso);
 	return true;
 }
+
+
 
 int main () {
 	assert (restart_gl_log ());
@@ -204,6 +207,7 @@ int main () {
         int vp_height = g_gl_height * 2;
         
 		glViewport (0, 0, vp_width, vp_height);
+        
         
 		glUseProgram (shader_programme);
         
