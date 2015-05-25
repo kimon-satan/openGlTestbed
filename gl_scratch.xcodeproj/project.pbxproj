@@ -33,7 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F120BFF71ABA2C0300BAA98C /* gl_tutorial */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gl_tutorial; sourceTree = BUILT_PRODUCTS_DIR; };
+		F120BFF71ABA2C0300BAA98C /* gl_scratch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gl_scratch; sourceTree = BUILT_PRODUCTS_DIR; };
 		F120C0061ABA33F600BAA98C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F120C0081ABA33FD00BAA98C /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		F120C00A1ABA340500BAA98C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
@@ -88,7 +88,7 @@
 		F120BFF81ABA2C0300BAA98C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F120BFF71ABA2C0300BAA98C /* gl_tutorial */,
+				F120BFF71ABA2C0300BAA98C /* gl_scratch */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,7 +137,7 @@
 			);
 			name = gl_scratch;
 			productName = gl_tutorial;
-			productReference = F120BFF71ABA2C0300BAA98C /* gl_tutorial */;
+			productReference = F120BFF71ABA2C0300BAA98C /* gl_scratch */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */

@@ -130,7 +130,7 @@ int main () {
 	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
     
 	glBindBuffer (GL_ARRAY_BUFFER, texcoords_vbo);
-	glVertexAttribPointer (1, 2, GL_FLOAT, GL_FALSE, 0, NULL); // normalise!
+	glVertexAttribPointer (1, 2, GL_FLOAT, GL_FALSE, 0, NULL); // normalise!*/
 	
 
 	
@@ -174,7 +174,7 @@ int main () {
 	
 	// load texture
 	GLuint tex;
-	assert (load_texture ("data/skulluvmap.png", &tex));
+	assert (load_texture ("data/skulluvmap.png", &tex)); 
 	
 	
 	glEnable (GL_CULL_FACE); // cull face
@@ -190,9 +190,18 @@ int main () {
 		_update_fps_counter (g_window);
 		// wipe the drawing surface clear
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport (0, 0, g_gl_width, g_gl_height);
-		
+        
+        float p = 4.0f/3;
+    
+        int vp_width = g_gl_height * 2 * p;
+        int vp_height = g_gl_height * 2;
+        
+		glViewport (0, 0, vp_width, vp_height);
+        
 		glUseProgram (shader_programme);
+        
+        int time_loc = glGetUniformLocation (shader_programme, "time");
+        glUniform1f(time_loc, (float)current_seconds);
 		glBindVertexArray (vao);
         
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -201,7 +210,7 @@ int main () {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elements);
 		glDrawElements(gMesh.mDrawMode, gMesh.mNumIndices, GL_UNSIGNED_INT, gMesh.mIndices);
 		// update other events like input handling 
-		glfwPollEvents ();
+		
 		
 		// control keys
 		bool cam_moved = false;
@@ -237,6 +246,9 @@ int main () {
 			cam_yaw -= cam_yaw_speed * elapsed_seconds;
 			cam_moved = true;
 		}
+        
+      
+        
 		// update view matrix
 		if (cam_moved) {
 			mat4 T = translate (identity_mat4 (), vec3 (-cam_pos[0], -cam_pos[1], -cam_pos[2])); // cam translation
@@ -246,9 +258,6 @@ int main () {
 		}
 		
 		
-		if (GLFW_PRESS == glfwGetKey (g_window, GLFW_KEY_ESCAPE)) {
-			glfwSetWindowShouldClose (g_window, 1);
-		}
         
         if (GLFW_PRESS == glfwGetKey (g_window, GLFW_KEY_0)) {
             
@@ -261,7 +270,12 @@ int main () {
             
             
         }
-
+        
+        if (GLFW_PRESS == glfwGetKey (g_window, GLFW_KEY_ESCAPE)) {
+            glfwSetWindowShouldClose (g_window, 1);
+        }
+        
+        glfwPollEvents ();
         
 		// put the stuff we've been drawing onto the display
 		glfwSwapBuffers (g_window);
@@ -269,5 +283,6 @@ int main () {
 	
 	// close GL context and any other GLFW resources
 	glfwTerminate();
+    //gMesh.destroy();
 	return 0;
 }

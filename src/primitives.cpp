@@ -13,16 +13,16 @@
 
 Mesh::Mesh(){
     
-    int mNumVertices = 0;
-    int mNumValues = 0;
-    int mNumIndices = 0;
-    int mNumTexCoords = 0;
-    GLint mDrawMode = GL_TRIANGLE_STRIP;
-    float * mVertices = NULL;
-    float * mColors = NULL;
-    float * mNormals = NULL;
-    float * mTexCoords = NULL;
-    GLuint * mIndices = NULL;
+    mNumVertices = 0;
+    mNumValues = 0;
+    mNumIndices = 0;
+    mNumTexCoords = 0;
+    mDrawMode = GL_TRIANGLE_STRIP;
+    mVertices = NULL;
+    mColors = NULL;
+    mNormals = NULL;
+    mTexCoords = NULL;
+    mIndices = NULL;
     
     
 }
@@ -178,7 +178,7 @@ Mesh Primitives::CreatePlane(float width, float height, int numcols, int numrows
     mesh.mNumIndices = (numrows-1) * (numcols * 2 + 2) - 2;
     mesh.mIndices = new GLuint[mesh.mNumIndices];
     mesh.mNumTexCoords = numcols * numrows;
-    mesh.mTexCoords = new float[mesh.mNumTexCoords];
+    mesh.mTexCoords = new float[mesh.mNumTexCoords * 2];
     
     Plane(mesh.mVertices, mesh.mIndices, mesh.mTexCoords, width, height, numcols, numrows);
     mesh.mDrawMode = GL_TRIANGLE_STRIP;

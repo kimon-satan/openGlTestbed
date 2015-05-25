@@ -80,51 +80,64 @@ bool gl_log_err (const char* message, ...) {
 
 /*--------------------------------GLFW3 and GLEW------------------------------*/
 bool start_gl () {
-	gl_log ("starting GLFW %s", glfwGetVersionString ());
-	
-	glfwSetErrorCallback (glfw_error_callback);
-	if (!glfwInit ()) {
-		fprintf (stderr, "ERROR: could not start GLFW3\n");
-		return false;
-	}
+    assert (restart_gl_log ());
+    // start GL context and O/S window using the GLFW helper library
+    gl_log ("starting GLFW\n%s\n", glfwGetVersionString ());
+    // register the error call-back function that we wrote, above
+    glfwSetErrorCallback (glfw_error_callback);
+    if (!glfwInit ()) {
+        fprintf (stderr, "ERROR: could not start GLFW3\n");
+        return false;
+    }
+    
+    // uncomment these lines if on Apple OS X
+    glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    
+    //Antialiasing
+    glfwWindowHint (GLFW_SAMPLES, 4);
+    
+    
+    /* GLFWmonitor* mon = glfwGetPrimaryMonitor ();
+     const GLFWvidmode* vmode = glfwGetVideoMode (mon);
+     window = glfwCreateWindow (
+     vmode->width, vmode->height, "Gl testing", mon, NULL
+     );
+     
+     g_gl_width = vmode->width;
+     g_gl_height = vmode->height; */
+    
+    g_window = glfwCreateWindow(g_gl_width, g_gl_height, "test framework",NULL,NULL);
+    
+    
+    glfwMakeContextCurrent (g_window);
+    glfwSetWindowSizeCallback (g_window, glfw_window_size_callback);
+    glfw_window_size_callback(g_window, g_gl_width, g_gl_height);
+    
+    glfwSetInputMode(g_window, GLFW_STICKY_KEYS, GL_FALSE);
+    
+    if (!g_window) {
+        fprintf (stderr, "ERROR: could not open window with GLFW3\n");
+        glfwTerminate();
+        return false;
+    }
+    
+    
+    
+    // start GLEW extension handler
+    glewExperimental = GL_TRUE;
+    glewInit ();
+    
+    // get version info
+    const GLubyte* renderer = glGetString (GL_RENDERER); // get renderer string
+    const GLubyte* version = glGetString (GL_VERSION); // version as a string
+    printf ("Renderer: %s\n", renderer);
+    printf ("OpenGL version supported %s\n", version);
 
-	// uncomment these lines if on Apple OS X
-	glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 2);
-	glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	/*GLFWmonitor* mon = glfwGetPrimaryMonitor ();
-	const GLFWvidmode* vmode = glfwGetVideoMode (mon);
-	g_window = glfwCreateWindow (
-		vmode->width, vmode->height, "Extended GL Init", mon, NULL
-	);*/
-
-	g_window = glfwCreateWindow (
-		g_gl_width, g_gl_height, "Extended Init.", NULL, NULL
-	);
-	if (!g_window) {
-		fprintf (stderr, "ERROR: could not open window with GLFW3\n");
-		glfwTerminate();
-		return false;
-	}
-	glfwSetWindowSizeCallback (g_window, glfw_window_size_callback);
-	glfwMakeContextCurrent (g_window);
-	
-	glfwWindowHint (GLFW_SAMPLES, 4);
-	
-	// start GLEW extension handler
-	glewExperimental = GL_TRUE;
-	glewInit ();
-
-	// get version info
-	const GLubyte* renderer = glGetString (GL_RENDERER); // get renderer string
-	const GLubyte* version = glGetString (GL_VERSION); // version as a string
-	printf ("Renderer: %s\n", renderer);
-	printf ("OpenGL version supported %s\n", version);
-	gl_log ("renderer: %s\nversion: %s\n", renderer, version);
-	
-	return true;
+    
+    return true;
 }
 
 void glfw_error_callback (int error, const char* description) {
@@ -137,7 +150,11 @@ void glfw_window_size_callback (GLFWwindow* window, int width, int height) {
 	g_gl_height = height;
 	printf ("width %i height %i\n", width, height);
 	/* update any perspective matrices used here */
+    
+    
 }
+
+
 
 void _update_fps_counter (GLFWwindow* window) {
 	static double previous_seconds = glfwGetTime ();
