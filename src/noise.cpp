@@ -78,6 +78,13 @@ float noise::Cubic_Interpolate(float v0, float v1, float v2, float v3, float x){
     return P * pow(x,3) + Q * x * x + R * x + S;
 }
 
+float noise::SmoothNoise_1D(float x, function_ptr_1d p_noise ){
+    
+    return p_noise(x)/2  +  p_noise(x-1)/4  +  p_noise(x+1)/4;
+    
+    
+}
+
 float noise::SmoothNoise_2D(float x, float y, function_ptr p_noise ){
 
     float corners = ( p_noise(x-1, y-1)+ p_noise(x+1, y-1)+ p_noise(x-1, y+1)+ p_noise(x+1, y+1) ) / 16;
@@ -110,6 +117,43 @@ float noise::InterpolatedNoise(float x, float y, function_ptr n)
 
 }
 
+float noise::InterpolatedNoise(float x, function_ptr_1d p){
+    
+    int integer_X    = floor(x);
+    float fractional_X = x - integer_X;
+    
+    float v1 = SmoothNoise_1D(integer_X, p);
+    float v2 = SmoothNoise_1D(integer_X + 1, p);
+    
+    return CosineInterpolate(v1 , v2 , fractional_X);
+    
+}
+
+
+float noise::PerlinNoise_1D(float x){
+    
+    float total = 0;
+
+    
+    for(int i = 0; i < mNumOctaves - 1; i++){
+    
+        float frequency = pow(2,i);
+        float amplitude = pow(mPersistance,i);
+        
+        function_ptr_1d p;
+        
+        switch (i%3) {
+            case 0: p = &noise::GenNoise1; break;
+            case 1: p = &noise::GenNoise2; break;
+            case 2: p = &noise::GenNoise3; break;
+        }
+    
+        total = total + InterpolatedNoise(x * frequency, p) * amplitude;
+    
+    }
+    
+    return total;
+}
 
 float noise::PerlinNoise_2D(float x, float y){
 

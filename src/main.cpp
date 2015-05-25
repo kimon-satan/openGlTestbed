@@ -31,6 +31,7 @@ int g_gl_width = 640;
 int g_gl_height = 480;
 GLFWwindow* g_window = NULL;
 
+
 bool load_texture (const char* file_name, GLuint* tex) {
 	int x, y, n;
 	int force_channels = 4;
@@ -104,7 +105,7 @@ int main () {
 	glEnable (GL_DEPTH_TEST); // enable depth-testing
 	glDepthFunc (GL_LESS); // depth-testing interprets a smaller value as "closer"
     
-    Mesh gMesh = Primitives::CreatePlane(1.0, 1.0, 20,4);
+    Mesh gMesh = Primitives::CreatePlane(1.0, 1.0, 20,20);
     
     gMesh.mTransform = glm::rotate(glm::mat4(1.0f), (float)PI * -0.25f, glm::vec3(1.0f,0.0f,0.0f));
 	
@@ -178,6 +179,7 @@ int main () {
 	int view_mat_location = glGetUniformLocation (shader_programme, "view");
 	glUseProgram (shader_programme);
 	glUniformMatrix4fv (view_mat_location, 1, GL_FALSE, view_mat.m);
+    
 	int proj_mat_location = glGetUniformLocation (shader_programme, "proj");
 	glUseProgram (shader_programme);
 	glUniformMatrix4fv (proj_mat_location, 1, GL_FALSE, proj_mat);
@@ -186,16 +188,59 @@ int main () {
 	GLuint tex;
 	assert (load_texture ("data/skulluvmap.png", &tex));
 	
-	
+    
+    GLuint noiseTex;
+    glGenTextures (1, &noiseTex); //make a texture pointer
+    glActiveTexture (GL_TEXTURE2);
+    glBindTexture (GL_TEXTURE_2D, noiseTex);
+    
+    float noisePixels[gMesh.mNumValues]; //actually we only need 1D noise ... to compute each frame
+    
+    for(int i = 0; i < gMesh.mNumValues - 1; i++)
+    {
+        noisePixels[i] = noise::PerlinNoise_2D(i, 0);
+        
+    }
+    
+    float pixels[12];
+    
+    for(int  i= 0; i < 12; i ++){
+        pixels[i] = (float)rand()/RAND_MAX;
+    }
+    
+    
+   // glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+   // glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D (GL_TEXTURE_2D,
+                  0,
+                  GL_RGB,
+                  gMesh.mNumValues, 2,
+                  0,
+                  GL_RGB, GL_FLOAT, noisePixels
+                  );
+    
+    int noiseTex_location = glGetUniformLocation (shader_programme, "noiseTex");
+    glUseProgram (shader_programme);
+    glUniform1i(noiseTex_location,0);
+
+    
+
+
 	//glEnable (GL_CULL_FACE); // cull face
 	glCullFace (GL_BACK); // cull back face
 	glFrontFace (GL_CW); // GL_CCW for counter clock-wise
+    
+    glUseProgram (shader_programme);
 	
 	while (!glfwWindowShouldClose (g_window)) {
 		static double previous_seconds = glfwGetTime ();
 		double current_seconds = glfwGetTime ();
 		double elapsed_seconds = current_seconds - previous_seconds;
 		previous_seconds = current_seconds;
+        
+        
 	
 		_update_fps_counter (g_window);
 		// wipe the drawing surface clear
@@ -209,27 +254,31 @@ int main () {
 		glViewport (0, 0, vp_width, vp_height);
         
         
-		glUseProgram (shader_programme);
-        
         int time_loc = glGetUniformLocation (shader_programme, "time");
         glUniform1f(time_loc, (float)current_seconds);
+        
+    
+        
 		glBindVertexArray (vao);
         
+     
         gMesh.mTransform = glm::rotate(gMesh.mTransform, (float)PI * -0.005f, glm::vec3(0.0f,0.0f,1.0f));
         
         int model_mat_location = glGetUniformLocation( shader_programme, "model");
-        glUseProgram (shader_programme);
         glUniformMatrix4fv (model_mat_location, 1, GL_FALSE, &gMesh.mTransform[0][0]);
         
-        
+
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		// draw points 0-3 from the currently bound VAO with current in-use shader
         //glDrawArrays(gMesh.mDrawMode, 0, 6);
+
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elements);
 		glDrawElements(gMesh.mDrawMode, gMesh.mNumIndices, GL_UNSIGNED_INT, gMesh.mIndices);
 		// update other events like input handling 
 		
-		
+
+
+        
 		// control keys
 		bool cam_moved = false;
 		if (glfwGetKey (g_window, GLFW_KEY_A)) {
