@@ -182,6 +182,7 @@ Mesh Primitives::CreatePlane(float width, float height, int numcols, int numrows
     
     Plane(mesh.mVertices, mesh.mIndices, mesh.mTexCoords, width, height, numcols, numrows);
     mesh.mDrawMode = GL_TRIANGLE_STRIP;
+    mesh.mTransform = glm::mat4(1.0);
     
     return mesh;
     

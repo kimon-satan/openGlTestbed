@@ -24,6 +24,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #define GL_LOG_FILE "gl.log"
+#define PI 3.1415968
 
 int g_gl_width = 640;
 int g_gl_height = 480;
@@ -102,7 +103,9 @@ int main () {
     
     Mesh gMesh = Primitives::CreatePlane(1.0, 1.0, 20,4);
     
+    gMesh.mTransform = glm::rotate(glm::mat4(1.0f), (float)PI * -0.25f, glm::vec3(1.0f,0.0f,0.0f));
 	
+    
 	GLuint points_vbo;
 	glGenBuffers (1, &points_vbo);
 	glBindBuffer (GL_ARRAY_BUFFER, points_vbo);
@@ -164,7 +167,11 @@ int main () {
 	mat4 T = translate (identity_mat4 (), vec3 (-cam_pos[0], -cam_pos[1], -cam_pos[2]));
 	mat4 R = rotate_y_deg (identity_mat4 (), -cam_yaw);
 	mat4 view_mat = R * T;
-	
+    
+    int model_mat_location = glGetUniformLocation( shader_programme, "model");
+    glUseProgram (shader_programme);
+	glUniformMatrix4fv (model_mat_location, 1, GL_FALSE, &gMesh.mTransform[0][0]);
+    
 	int view_mat_location = glGetUniformLocation (shader_programme, "view");
 	glUseProgram (shader_programme);
 	glUniformMatrix4fv (view_mat_location, 1, GL_FALSE, view_mat.m);
@@ -174,10 +181,10 @@ int main () {
 	
 	// load texture
 	GLuint tex;
-	assert (load_texture ("data/skulluvmap.png", &tex)); 
+	assert (load_texture ("data/skulluvmap.png", &tex));
 	
 	
-	glEnable (GL_CULL_FACE); // cull face
+	//glEnable (GL_CULL_FACE); // cull face
 	glCullFace (GL_BACK); // cull back face
 	glFrontFace (GL_CW); // GL_CCW for counter clock-wise
 	
@@ -203,6 +210,13 @@ int main () {
         int time_loc = glGetUniformLocation (shader_programme, "time");
         glUniform1f(time_loc, (float)current_seconds);
 		glBindVertexArray (vao);
+        
+        gMesh.mTransform = glm::rotate(gMesh.mTransform, (float)PI * -0.005f, glm::vec3(0.0f,0.0f,1.0f));
+        
+        int model_mat_location = glGetUniformLocation( shader_programme, "model");
+        glUseProgram (shader_programme);
+        glUniformMatrix4fv (model_mat_location, 1, GL_FALSE, &gMesh.mTransform[0][0]);
+        
         
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		// draw points 0-3 from the currently bound VAO with current in-use shader
