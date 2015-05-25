@@ -185,29 +185,28 @@ int main () {
 	glUniformMatrix4fv (proj_mat_location, 1, GL_FALSE, proj_mat);
 	
 	// load texture
-	GLuint tex;
-	assert (load_texture ("data/skulluvmap.png", &tex));
-	
+
+ 
     
     GLuint noiseTex;
     glGenTextures (1, &noiseTex); //make a texture pointer
     glActiveTexture (GL_TEXTURE2);
     glBindTexture (GL_TEXTURE_2D, noiseTex);
     
-    float noisePixels[gMesh.mNumValues]; //actually we only need 1D noise ... to compute each frame
+    float noisePixels[gMesh.mNumValues * 2]; //actually we only need 1D noise ... to compute each frame
     
-    for(int i = 0; i < gMesh.mNumValues - 1; i++)
+    int count = 0;
+    for(int i = 0; i < gMesh.mNumValues * 2 - 1; i+=3)
     {
-        noisePixels[i] = noise::PerlinNoise_2D(i, 0);
+        noisePixels[i] = noise::PerlinNoise_2D(count * 0.05, 0);
+        noisePixels[i+1] = 0;
+        noisePixels[i+2] = 0;
+        std::cout << noisePixels[i] << std::endl;;
+        count ++;
         
     }
-    
-    float pixels[12];
-    
-    for(int  i= 0; i < 12; i ++){
-        pixels[i] = (float)rand()/RAND_MAX;
-    }
-    
+
+
     
    // glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
    // glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -215,18 +214,26 @@ int main () {
     glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexImage2D (GL_TEXTURE_2D,
                   0,
-                  GL_RGB,
+                  GL_RGB,   //how can I pass this as luminance .. also I want to reference values according to mesh cooridinate
                   gMesh.mNumValues, 2,
                   0,
                   GL_RGB, GL_FLOAT, noisePixels
                   );
     
+//    GetTexLevelParameteriv(target, level, TEXTURE_INTERNAL_FORMAT, &actual_format);
+    //to check textures ?
+    
     int noiseTex_location = glGetUniformLocation (shader_programme, "noiseTex");
     glUseProgram (shader_programme);
-    glUniform1i(noiseTex_location,0);
+    glUniform1i(noiseTex_location, 2);
+    
+    glActiveTexture (GL_TEXTURE2);
+    glBindTexture (GL_TEXTURE_2D, noiseTex);
 
     
-
+ 
+    GLuint tex;
+    assert (load_texture ("data/skulluvmap.png", &tex));
 
 	//glEnable (GL_CULL_FACE); // cull face
 	glCullFace (GL_BACK); // cull back face

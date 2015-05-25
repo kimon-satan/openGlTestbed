@@ -18,5 +18,5 @@ void main() {
     
     vec4 noise = texelFetch(noiseTex, ivec2(gl_VertexID,0),0);
     
-	gl_Position = proj * view * model * vec4 (vertex_position.x  , vertex_position.y , vertex_position.z + noise.x  , 1.0);
+	gl_Position = proj * view * model * vec4 (vertex_position.x, vertex_position.y  , vertex_position.z + noise.x * 0.5, 1.0);
 }
