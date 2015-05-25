@@ -13,6 +13,7 @@
 
 #include "maths_funcs.h"
 #include "gl_utils.h"
+#include "primitives.h"
 #include "stb_image.h" // Sean Barrett's image loader - http://nothings.org/
 #include <GL/glew.h> // include GLEW and new version of GL on Windows
 #include <GLFW/glfw3.h> // GLFW helper library
@@ -98,40 +99,32 @@ int main () {
 	// tell GL to only draw onto a pixel if the shape is closer to the viewer
 	glEnable (GL_DEPTH_TEST); // enable depth-testing
 	glDepthFunc (GL_LESS); // depth-testing interprets a smaller value as "closer"
-
-	/* OTHER STUFF GOES HERE NEXT */
-	GLfloat points[] = {
-		-0.5f, -0.5f,  0.0f,
-		 0.5f, -0.5f,  0.0f,
-		 0.5f,  0.5f,  0.0f,
-		 0.5f,  0.5f,  0.0f,
-		-0.5f,  0.5f,  0.0f,
-		-0.5f, -0.5f,  0.0f
-	};
-	
-	// 2^16 = 65536
-	GLfloat texcoords[] = { //NB same number of texcoords as vertices
-		0.0f, 0.0f,
-		1.0f, 0.0f,
-		1.0f, 1.0f,
-		1.0f, 1.0f,
-		0.0f, 1.0f,
-		0.0f, 0.0f
-	};
+    
+    Mesh gMesh = Primitives::CreatePlane(1.0, 1.0, 20,4);
+    
 	
 	GLuint points_vbo;
 	glGenBuffers (1, &points_vbo);
 	glBindBuffer (GL_ARRAY_BUFFER, points_vbo);
-	glBufferData (GL_ARRAY_BUFFER, 18 * sizeof (GLfloat), points, GL_STATIC_DRAW);
+	glBufferData (GL_ARRAY_BUFFER, gMesh.mNumValues * sizeof (float), gMesh.mVertices, GL_STATIC_DRAW);
+    
+    GLuint elements = 0;
+    glGenBuffers (1, &elements);
+    glBindBuffer (GL_ARRAY_BUFFER, elements);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, gMesh.mNumIndices * sizeof(GLuint), gMesh.mIndices, GL_STATIC_DRAW);
+    
 	
 	GLuint texcoords_vbo;
 	glGenBuffers (1, &texcoords_vbo);
 	glBindBuffer (GL_ARRAY_BUFFER, texcoords_vbo);
-	glBufferData (GL_ARRAY_BUFFER, 12 * sizeof (GLfloat), texcoords, GL_STATIC_DRAW);
+	glBufferData (GL_ARRAY_BUFFER, gMesh.mNumTexCoords * 2 * sizeof (GLfloat), gMesh.mTexCoords, GL_STATIC_DRAW);
 	
 	GLuint vao;
 	glGenVertexArrays (1, &vao);
 	glBindVertexArray (vao);
+    
+    glEnableVertexAttribArray (0);
+    glEnableVertexAttribArray (1);
 	
     glBindBuffer (GL_ARRAY_BUFFER, points_vbo);
 	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
@@ -139,8 +132,7 @@ int main () {
 	glBindBuffer (GL_ARRAY_BUFFER, texcoords_vbo);
 	glVertexAttribPointer (1, 2, GL_FLOAT, GL_FALSE, 0, NULL); // normalise!
 	
-    glEnableVertexAttribArray (0);
-	glEnableVertexAttribArray (1);
+
 	
 	GLuint shader_programme = create_programme_from_files (
 		"shaders/test_vs.glsl", "shaders/test_fs.glsl");
@@ -187,7 +179,7 @@ int main () {
 	
 	glEnable (GL_CULL_FACE); // cull face
 	glCullFace (GL_BACK); // cull back face
-	glFrontFace (GL_CCW); // GL_CCW for counter clock-wise
+	glFrontFace (GL_CW); // GL_CCW for counter clock-wise
 	
 	while (!glfwWindowShouldClose (g_window)) {
 		static double previous_seconds = glfwGetTime ();
@@ -202,8 +194,12 @@ int main () {
 		
 		glUseProgram (shader_programme);
 		glBindVertexArray (vao);
+        
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		// draw points 0-3 from the currently bound VAO with current in-use shader
-		glDrawArrays (GL_TRIANGLES, 0, 6);
+        //glDrawArrays(gMesh.mDrawMode, 0, 6);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elements);
+		glDrawElements(gMesh.mDrawMode, gMesh.mNumIndices, GL_UNSIGNED_INT, gMesh.mIndices);
 		// update other events like input handling 
 		glfwPollEvents ();
 		
@@ -253,6 +249,20 @@ int main () {
 		if (GLFW_PRESS == glfwGetKey (g_window, GLFW_KEY_ESCAPE)) {
 			glfwSetWindowShouldClose (g_window, 1);
 		}
+        
+        if (GLFW_PRESS == glfwGetKey (g_window, GLFW_KEY_0)) {
+            
+
+            if(gMesh.mDrawMode == GL_LINE_STRIP){
+                gMesh.mDrawMode = GL_TRIANGLE_STRIP;
+            }else{
+                gMesh.mDrawMode = GL_LINE_STRIP;
+            }
+            
+            
+        }
+
+        
 		// put the stuff we've been drawing onto the display
 		glfwSwapBuffers (g_window);
 	}

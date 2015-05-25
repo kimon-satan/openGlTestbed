@@ -17,6 +17,7 @@
 		F18ADBE81B133D8D00114AE2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F18ADBE41B133D8D00114AE2 /* main.cpp */; };
 		F18ADBE91B133D8D00114AE2 /* maths_funcs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F18ADBE51B133D8D00114AE2 /* maths_funcs.cpp */; };
 		F18ADBEC1B133D9A00114AE2 /* stb_image.c in Sources */ = {isa = PBXBuildFile; fileRef = F18ADBEA1B133D9A00114AE2 /* stb_image.c */; };
+		F18ADBF31B134F7000114AE2 /* primitives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F18ADBF11B134F7000114AE2 /* primitives.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,6 +49,8 @@
 		F18ADBEB1B133D9A00114AE2 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_image.h; path = src/stb_image.h; sourceTree = SOURCE_ROOT; };
 		F18ADBEF1B133FCA00114AE2 /* test_fs.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test_fs.glsl; path = shaders/test_fs.glsl; sourceTree = SOURCE_ROOT; };
 		F18ADBF01B133FCA00114AE2 /* test_vs.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test_vs.glsl; path = shaders/test_vs.glsl; sourceTree = SOURCE_ROOT; };
+		F18ADBF11B134F7000114AE2 /* primitives.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = primitives.cpp; path = src/primitives.cpp; sourceTree = SOURCE_ROOT; };
+		F18ADBF21B134F7000114AE2 /* primitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = primitives.h; path = src/primitives.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,11 +108,13 @@
 			children = (
 				F18ADBEF1B133FCA00114AE2 /* test_fs.glsl */,
 				F18ADBF01B133FCA00114AE2 /* test_vs.glsl */,
-				F18ADBE21B133D8D00114AE2 /* gl_utils.cpp */,
-				F18ADBE31B133D8D00114AE2 /* gl_utils.h */,
 				F18ADBE41B133D8D00114AE2 /* main.cpp */,
 				F18ADBE51B133D8D00114AE2 /* maths_funcs.cpp */,
 				F18ADBE61B133D8D00114AE2 /* maths_funcs.h */,
+				F18ADBF11B134F7000114AE2 /* primitives.cpp */,
+				F18ADBF21B134F7000114AE2 /* primitives.h */,
+				F18ADBE21B133D8D00114AE2 /* gl_utils.cpp */,
+				F18ADBE31B133D8D00114AE2 /* gl_utils.h */,
 			);
 			name = src;
 			path = gl_tutorial;
@@ -168,6 +173,7 @@
 			files = (
 				F18ADBE81B133D8D00114AE2 /* main.cpp in Sources */,
 				F18ADBE91B133D8D00114AE2 /* maths_funcs.cpp in Sources */,
+				F18ADBF31B134F7000114AE2 /* primitives.cpp in Sources */,
 				F18ADBE71B133D8D00114AE2 /* gl_utils.cpp in Sources */,
 				F18ADBEC1B133D9A00114AE2 /* stb_image.c in Sources */,
 			);
