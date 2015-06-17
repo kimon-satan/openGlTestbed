@@ -105,7 +105,9 @@ int main () {
 	glEnable (GL_DEPTH_TEST); // enable depth-testing
 	glDepthFunc (GL_LESS); // depth-testing interprets a smaller value as "closer"
     
-    Mesh gMesh = Primitives::CreatePlane(1.0, 1.0, 20,20);
+    int rows = 20;
+    int cols = 20;
+    Mesh gMesh = Primitives::CreatePlane(1.0, 1.0, rows, cols);
     
     gMesh.mTransform = glm::rotate(glm::mat4(1.0f), (float)PI * -0.25f, glm::vec3(1.0f,0.0f,0.0f));
 	
@@ -193,35 +195,24 @@ int main () {
     glActiveTexture (GL_TEXTURE2);
     glBindTexture (GL_TEXTURE_2D, noiseTex);
     
-    float noisePixels[gMesh.mNumValues * 2]; //actually we only need 1D noise ... to compute each frame
+    float noisePixels[gMesh.mNumVertices]; //actually we only need 1D noise ... to compute each frame
     
-    int count = 0;
-    for(int i = 0; i < gMesh.mNumValues * 2 - 1; i+=3)
+    for(int i = 0; i < cols; i++)
     {
-        noisePixels[i] = noise::PerlinNoise_2D(count * 0.05, 0);
-        noisePixels[i+1] = 0;
-        noisePixels[i+2] = 0;
-        std::cout << noisePixels[i] << std::endl;;
-        count ++;
-        
+        for(int j = 0; j < rows; j++){
+            noisePixels[i+j*cols] = noise::PerlinNoise_2D(i * 0.05 + 20, j * 0.05);
+        }
     }
 
-
-    
-   // glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-   // glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexImage2D (GL_TEXTURE_2D,
                   0,
-                  GL_RGB,   //how can I pass this as luminance .. also I want to reference values according to mesh cooridinate
-                  gMesh.mNumValues, 2,
+                  GL_RED,   //how can I pass this as luminance .. also I want to reference values according to mesh cooridinate
+                  rows, cols,
                   0,
-                  GL_RGB, GL_FLOAT, noisePixels
+                  GL_RED, GL_FLOAT, noisePixels
                   );
     
-//    GetTexLevelParameteriv(target, level, TEXTURE_INTERNAL_FORMAT, &actual_format);
-    //to check textures ?
     
     int noiseTex_location = glGetUniformLocation (shader_programme, "noiseTex");
     glUseProgram (shader_programme);

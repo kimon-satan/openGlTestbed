@@ -15,8 +15,10 @@ void main() {
     float phase = gl_VertexID * 1.0;
     float incr_z = sin(time * 4.0 + phase) * 0.1;
     float incr_y = cos(time * 2.0 + vertex_position.y * 3.141 * 5.0) * 0.1;
+    int y = gl_VertexID/20;
+    int x = gl_VertexID - y * 20;
     
-    vec4 noise = texelFetch(noiseTex, ivec2(gl_VertexID,0),0);
+    vec4 noise = texelFetch(noiseTex, ivec2(x,y),0);
     
-	gl_Position = proj * view * model * vec4 (vertex_position.x, vertex_position.y  , vertex_position.z + noise.x * 0.5, 1.0);
+	gl_Position = proj * view * model * vec4 (vertex_position.x, vertex_position.y , vertex_position.z + noise.x, 1.0);
 }

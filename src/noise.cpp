@@ -10,7 +10,7 @@
 #include <math.h>
 
 int noise::mNumOctaves = 8;
-float noise::mPersistance = 0.3;
+float noise::mPersistance = 0.5;
 
 float noise::GenNoise1(int x){
 
