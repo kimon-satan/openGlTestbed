@@ -1,1 +1,5 @@
 Build/*
+.DS_Store
+data/.DS_Store
+gl.log
+src/.DS_Store
