@@ -9,8 +9,8 @@
 #include "noise.h"
 #include <math.h>
 
-int noise::mNumOctaves = 8;
-float noise::mPersistance = 0.4;
+int noise::mNumOctaves = 4;
+float noise::mPersistance = 0.2;
 
 float noise::GenNoise1(int x){
 

@@ -34,6 +34,8 @@ public:
     int mNumIndices;
     int mNumTexCoords;
     int mNumFaces;
+    int mNumRows;
+    int mNumCols;
     GLint mDrawMode;
     float * mVertices;
     float * mColors;
@@ -58,6 +60,7 @@ class Primitives {
     static void Cube(float * points, float * colours, GLubyte * indices); //this will generate normalised points for a cube
     static void Quad(float * points, float w_scale = 1, float h_scale = 1, glm::vec3 offset = glm::vec3(0,0,0));
     static void Plane(float * points, GLuint * indices, float * texCoords, float width, float height, int numcols = 1, int numrows = 1);
+    static void RecalcNormals(Mesh & mesh );
     
     static Mesh CreatePlane(float width, float height,  int numcols = 1, int numrows = 1);
 };

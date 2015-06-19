@@ -36,7 +36,7 @@ void main() {
     dot_prod = max(dot_prod ,0.0);
     
     
-    vec3 Ia = La * Ka; //ambient intensity
+    vec3 Ia = La * Ka * vec3(texel); //ambient intensity
     vec3 Id = vec3(texel) * Kd * dot_prod;
     //vec3 Id = Ld * Kd * dot_prod;
     vec3 Is = Ls * Ks * specular_factor;

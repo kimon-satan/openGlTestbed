@@ -106,8 +106,8 @@ int main () {
 	glEnable (GL_DEPTH_TEST); // enable depth-testing
 	glDepthFunc (GL_LESS); // depth-testing interprets a smaller value as "closer"
     
-    int rows = 5;
-    int cols = 5;
+    int rows = 70;
+    int cols = 70;
     
     ////////////////////////////////////////////////////////
     
@@ -132,6 +132,9 @@ int main () {
     ////////////////////////////////////////////////////////
     
     Mesh gMesh = Primitives::CreatePlane(1.0, 1.0, rows, cols);
+    
+
+    
     gMesh.mTransform = glm::rotate(glm::mat4(1.0f), (float)PI * -0.25f, glm::vec3(1.0f,0.0f,0.0f));
 	
     gMesh.Ks = vec3(1.0,1.0,1.0); //full reflection of specular light
@@ -242,6 +245,10 @@ int main () {
             noisePixels[i+j*cols] = noise::PerlinNoise_2D(i * 0.05 + 20, j * 0.05);
         }
     }
+    
+
+    
+
 
     glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexImage2D (GL_TEXTURE_2D,
@@ -290,6 +297,20 @@ int main () {
         
 		glViewport (0, 0, vp_width, vp_height);
         
+        for(int i = 0; i < cols; i++)
+        {
+            for(int j = 0; j < rows; j++){
+                gMesh.mVertices[(i+j*cols) * 3 + 2] = noise::PerlinNoise_2D((i + current_seconds) * 0.05, (j + current_seconds * 2) * 0.05) * 2.0;
+            }
+        }
+        
+        Primitives::RecalcNormals(gMesh);
+
+        glBindBuffer (GL_ARRAY_BUFFER, points_vbo);
+        glBufferData (GL_ARRAY_BUFFER, gMesh.mNumValues * sizeof (float), gMesh.mVertices, GL_STATIC_DRAW);
+        
+        glBindBuffer (GL_ARRAY_BUFFER, normals_vbo);
+        glBufferData (GL_ARRAY_BUFFER, gMesh.mNumValues * sizeof (float), gMesh.mNormals, GL_STATIC_DRAW);
         
         int time_loc = glGetUniformLocation (shader_programme, "time");
         glUniform1f(time_loc, (float)current_seconds);
@@ -302,7 +323,7 @@ int main () {
 		glBindVertexArray (vao);
         
      
-        gMesh.mTransform = glm::rotate(gMesh.mTransform, (float)PI * -0.005f, glm::vec3(1.0f,1.0f,1.0f));
+        //gMesh.mTransform = glm::rotate(gMesh.mTransform, (float)PI * -0.005f, glm::vec3(1.0f,1.0f,1.0f));
         
        
         
