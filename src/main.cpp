@@ -106,8 +106,8 @@ int main () {
 	glEnable (GL_DEPTH_TEST); // enable depth-testing
 	glDepthFunc (GL_LESS); // depth-testing interprets a smaller value as "closer"
     
-    int rows = 70;
-    int cols = 70;
+    int rows = 50;
+    int cols = 50;
     
     ////////////////////////////////////////////////////////
     
@@ -300,7 +300,7 @@ int main () {
         for(int i = 0; i < cols; i++)
         {
             for(int j = 0; j < rows; j++){
-                gMesh.mVertices[(i+j*cols) * 3 + 2] = noise::PerlinNoise_2D((i + current_seconds) * 0.05, (j + current_seconds * 2) * 0.05) * 2.0;
+                gMesh.mVertices[(i+j*cols) * 3 + 2] = noise::PerlinNoise_2D((i + current_seconds * 5) * 0.05, (j + current_seconds * 5) * 0.05) * 2.0;
             }
         }
         
