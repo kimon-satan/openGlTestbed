@@ -97,6 +97,7 @@ bool load_texture (const char* file_name, GLuint* tex) {
 
 
 int main () {
+    
 	assert (restart_gl_log ());
 	// use GLFW and GLEW to start GL context. see gl_utils.cpp for details
 	assert (start_gl ());
@@ -105,12 +106,38 @@ int main () {
 	glEnable (GL_DEPTH_TEST); // enable depth-testing
 	glDepthFunc (GL_LESS); // depth-testing interprets a smaller value as "closer"
     
-    int rows = 20;
-    int cols = 20;
-    Mesh gMesh = Primitives::CreatePlane(1.0, 1.0, rows, cols);
+    int rows = 5;
+    int cols = 5;
     
+    ////////////////////////////////////////////////////////
+    
+    /*
+     Light source
+     
+     3D world position
+     RGB colour
+     ls = specular light
+     ld = diffuse light
+     la = ambient light
+     
+     */
+    
+    vec3 light_position_world = vec3 (10.0,10.0,10.0);
+    vec3 Ls = vec3 (1.0, 1.0 ,1.0);
+    vec3 Ld = vec3 (0.7 , 0.7, 0.7);
+    vec3 La = vec3 (0.2, 0.2, 0.2);
+    
+    
+    
+    ////////////////////////////////////////////////////////
+    
+    Mesh gMesh = Primitives::CreatePlane(1.0, 1.0, rows, cols);
     gMesh.mTransform = glm::rotate(glm::mat4(1.0f), (float)PI * -0.25f, glm::vec3(1.0f,0.0f,0.0f));
 	
+    gMesh.Ks = vec3(1.0,1.0,1.0); //full reflection of specular light
+    gMesh.Kd = vec3(0.5, 0.5, 0.5); //half sulrface reflectance
+    gMesh.Ka = vec3(1.0, 1.0, 1.0); //fully reflect ambient light
+    gMesh.specular_exponent = 100.0f; //errr dunno exactly yet
     
 	GLuint points_vbo;
 	glGenBuffers (1, &points_vbo);
@@ -127,19 +154,31 @@ int main () {
 	glGenBuffers (1, &texcoords_vbo);
 	glBindBuffer (GL_ARRAY_BUFFER, texcoords_vbo);
 	glBufferData (GL_ARRAY_BUFFER, gMesh.mNumTexCoords * 2 * sizeof (GLfloat), gMesh.mTexCoords, GL_STATIC_DRAW);
+    
+    GLuint normals_vbo;
+    glGenBuffers (1, &normals_vbo);
+    glBindBuffer (GL_ARRAY_BUFFER, normals_vbo);
+    glBufferData (GL_ARRAY_BUFFER, gMesh.mNumValues * sizeof (float), gMesh.mNormals, GL_STATIC_DRAW);
+    
+    
 	
 	GLuint vao;
 	glGenVertexArrays (1, &vao);
 	glBindVertexArray (vao);
-    
-    glEnableVertexAttribArray (0);
-    glEnableVertexAttribArray (1);
+
 	
     glBindBuffer (GL_ARRAY_BUFFER, points_vbo);
 	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
     
 	glBindBuffer (GL_ARRAY_BUFFER, texcoords_vbo);
 	glVertexAttribPointer (1, 2, GL_FLOAT, GL_FALSE, 0, NULL); // normalise!*/
+    
+    glBindBuffer (GL_ARRAY_BUFFER, normals_vbo);
+    glVertexAttribPointer (2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    
+    glEnableVertexAttribArray (0);
+    glEnableVertexAttribArray (1);
+    glEnableVertexAttribArray (2);
 	
 
 	
@@ -226,7 +265,7 @@ int main () {
     GLuint tex;
     assert (load_texture ("data/skulluvmap.png", &tex));
 
-	//glEnable (GL_CULL_FACE); // cull face
+	glEnable (GL_CULL_FACE); // cull face
 	glCullFace (GL_BACK); // cull back face
 	glFrontFace (GL_CW); // GL_CCW for counter clock-wise
     
@@ -254,13 +293,18 @@ int main () {
         
         int time_loc = glGetUniformLocation (shader_programme, "time");
         glUniform1f(time_loc, (float)current_seconds);
-        
+        int rows_loc = glGetUniformLocation (shader_programme, "rows");
+        glUniform1i(rows_loc, rows);
+        int cols_loc = glGetUniformLocation (shader_programme, "cols");
+        glUniform1i(cols_loc, cols);
     
         
 		glBindVertexArray (vao);
         
      
-        gMesh.mTransform = glm::rotate(gMesh.mTransform, (float)PI * -0.005f, glm::vec3(0.0f,0.0f,1.0f));
+        gMesh.mTransform = glm::rotate(gMesh.mTransform, (float)PI * -0.005f, glm::vec3(1.0f,1.0f,1.0f));
+        
+       
         
         int model_mat_location = glGetUniformLocation( shader_programme, "model");
         glUniformMatrix4fv (model_mat_location, 1, GL_FALSE, &gMesh.mTransform[0][0]);
@@ -280,11 +324,13 @@ int main () {
 		// control keys
 		bool cam_moved = false;
 		if (glfwGetKey (g_window, GLFW_KEY_A)) {
-			cam_pos[0] -= cam_speed * elapsed_seconds;
-			cam_moved = true;
+             gMesh.mTransform = glm::translate(gMesh.mTransform, glm::vec3(0.0,0.001,0.0));
+			//cam_pos[0] -= cam_speed * elapsed_seconds;
+			//cam_moved = true;
 		}
 		if (glfwGetKey (g_window, GLFW_KEY_D)) {
-			cam_pos[0] += cam_speed * elapsed_seconds;
+            gMesh.mTransform = glm::translate(gMesh.mTransform, glm::vec3(0.0,-0.001,0.0));
+			//cam_pos[0] += cam_speed * elapsed_seconds;
 			cam_moved = true;
 		}
 		if (glfwGetKey (g_window, GLFW_KEY_PAGE_UP)) {

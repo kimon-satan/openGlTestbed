@@ -14,6 +14,7 @@
 Mesh::Mesh(){
     
     mNumVertices = 0;
+    mNumFaces = 0;
     mNumValues = 0;
     mNumIndices = 0;
     mNumTexCoords = 0;
@@ -21,6 +22,7 @@ Mesh::Mesh(){
     mVertices = NULL;
     mColors = NULL;
     mNormals = NULL;
+    mFaceNormals = NULL;
     mTexCoords = NULL;
     mIndices = NULL;
     
@@ -44,6 +46,10 @@ void Mesh::destroy(){
     
     if(mTexCoords != NULL){
         delete [] mTexCoords;
+    }
+    
+    if(mNormals != NULL){
+        delete [] mNormals;
     }
     
 }
@@ -165,6 +171,8 @@ void Primitives::Plane(float * points, GLuint * indices,  float * texCoords, flo
         
     }
     
+
+    
     
 }
 
@@ -172,6 +180,7 @@ Mesh Primitives::CreatePlane(float width, float height, int numcols, int numrows
     
     Mesh mesh;
     
+    mesh.mNumFaces = (numcols - 1) * (numrows -1) * 2;
     mesh.mNumValues = numcols * numrows * 3;
     mesh.mNumVertices = numcols * numrows;
     mesh.mVertices = new float[mesh.mNumValues];
@@ -179,10 +188,64 @@ Mesh Primitives::CreatePlane(float width, float height, int numcols, int numrows
     mesh.mIndices = new GLuint[mesh.mNumIndices];
     mesh.mNumTexCoords = numcols * numrows;
     mesh.mTexCoords = new float[mesh.mNumTexCoords * 2];
+    mesh.mFaceNormals = new float[mesh.mNumFaces * 3];
+    mesh.mNormals = new float[mesh.mNumValues];
     
     Plane(mesh.mVertices, mesh.mIndices, mesh.mTexCoords, width, height, numcols, numrows);
     mesh.mDrawMode = GL_TRIANGLE_STRIP;
     mesh.mTransform = glm::mat4(1.0);
+    
+    int faceCount = 0;
+    
+    //NB this really does only half the faces but it makes a normal for every vertice anyway
+    
+    for(int r = 0; r < numrows - 1; r++){
+       
+        for(int c = 0; c < numcols -1; c++){
+            
+            int idx1 = r * numcols + c;
+            int idx2 = idx1 + 1;
+            int idx3 = idx1 + numcols;
+            int idx4 = idx3 + 1;
+            
+            idx1 *= 3;
+            idx2 *= 3;
+            idx3 *= 3;
+            idx4 *= 3;
+            
+            vec3 v1 = vec3(mesh.mVertices[idx1], mesh.mVertices[idx1 + 1], mesh.mVertices[idx1 +2]);
+            vec3 v2 = vec3(mesh.mVertices[idx2], mesh.mVertices[idx2 + 1], mesh.mVertices[idx2 +2]);
+            vec3 v3 = vec3(mesh.mVertices[idx3], mesh.mVertices[idx3 + 1], mesh.mVertices[idx3 +2]);
+            
+            vec3 e1 = vec3(v1 -v3);
+            e1 = normalise(e1);
+            vec3 e2 = vec3(v1 - v2);
+            e2 = normalise(e2);
+            vec3 nf = cross( e2, e1);
+            
+            //vec3 nf = vec3(0,0,1);
+            
+            for(int i = 0; i < 3; i++){
+               mesh.mFaceNormals[faceCount * 3 + i]= nf.v[i];
+               mesh.mFaceNormals[faceCount * 3 + i + 3]= nf.v[i]; //assume the counterpart is identical for the moment
+               mesh.mNormals[idx1 + i] = nf.v[i];
+               mesh.mNormals[idx2 + i] = nf.v[i];
+               mesh.mNormals[idx3 + i] = nf.v[i];
+               mesh.mNormals[idx4 + i] = nf.v[i];
+      
+            }
+            
+            
+            faceCount += 2;
+       
+            
+        }
+    }
+    
+    
+    for(int i = 0; i < mesh.mNumValues; i+=3){
+        std::cout << mesh.mNormals[i] << "," << mesh.mNormals[i+1] << ","<< mesh.mNormals[i+2]  << std::endl;
+    }
     
     return mesh;
     

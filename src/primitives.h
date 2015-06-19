@@ -19,6 +19,7 @@
 #include <glm/glm.hpp>
 #include <glm/mat4x4.hpp> // glm::mat4
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
+#include "maths_funcs.h"
 
 class Mesh{
     
@@ -32,13 +33,19 @@ public:
     int mNumValues;
     int mNumIndices;
     int mNumTexCoords;
+    int mNumFaces;
     GLint mDrawMode;
     float * mVertices;
     float * mColors;
     float * mNormals;
     float * mTexCoords; //in pairs
+    float * mFaceNormals;
     GLuint * mIndices;
     glm::mat4 mTransform;
+    
+    vec3 Ks, Kd, Ka;
+    
+    float specular_exponent;
     
     
     
